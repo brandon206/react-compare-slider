@@ -168,14 +168,16 @@ export const ReactCompareSlider: React.FC<
         // Use height *or* width based on orientation.
         (_portrait ? adjustedHeight : adjustedWidth) - _boundsPadding
       );
-
-      (clipContainerRef.current as HTMLElement).style.clip = _portrait
-        ? `rect(auto,auto,${clampedPx}px,auto)`
-        : `rect(auto,${clampedPx}px,auto,auto)`;
-
-      (handleContainerRef.current as HTMLElement).style.transform = _portrait
-        ? `translate3d(0,${clampedPx}px,0)`
-        : `translate3d(${clampedPx}px,0,0)`;
+      if (clipContainerRef) {
+        (clipContainerRef.current as HTMLElement).style.clip = _portrait
+          ? `rect(auto,auto,${clampedPx}px,auto)`
+          : `rect(auto,${clampedPx}px,auto,auto)`;
+      }
+      if (handleContainerRef) {
+        (handleContainerRef.current as HTMLElement).style.transform = _portrait
+          ? `translate3d(0,${clampedPx}px,0)`
+          : `translate3d(${clampedPx}px,0,0)`;
+      }
 
       if (onPositionChange) onPositionChange(internalPositionPc.current);
     },
